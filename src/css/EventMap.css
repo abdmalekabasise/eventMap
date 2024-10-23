@@ -1,0 +1,206 @@
+/* Container styling */
+.event-map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.map-and-search {
+    width: 100%;
+    margin-bottom: 40px; /* Add more space between the map and the form */
+}
+
+.google-map {
+    width: 100%;
+    height: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+
+/* InfoWindow Styling */
+.info-window {
+    max-width: 250px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    font-size: 14px;
+}
+
+.info-window h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.info-window p {
+    font-size: 14px;
+    margin: 4px 0;
+    color: #555;
+}
+
+/* Mobile Specific Styling for InfoWindow */
+@media (max-width: 576px) {
+    .info-window {
+        max-width: 200px; /* Reduce max width on mobile */
+        padding: 8px; /* Reduce padding to make it more compact */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Reduce shadow for a less bulky look */
+    }
+
+    .info-window h2 {
+        font-size: 14px; /* Reduce header size */
+        margin-bottom: 6px;
+    }
+
+    .info-window p {
+        font-size: 13px; /* Reduce paragraph font size */
+        margin: 3px 0;
+    }
+}
+
+.event-container-window {
+
+    margin-top: 50px;
+
+}
+
+@media (max-width: 576px) {
+    .event-container-window {
+        margin-top: 50px; /* Add margin-top for mobile view */
+    }
+}
+
+
+/* Event Form Styling */
+.event-form {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin: 0 auto; /* Center form horizontally */
+    display: grid;
+    grid-template-columns: 1fr; /* Single column by default */
+    gap: 15px;
+}
+
+/* Center the form heading */
+.event-form h3 {
+    grid-column: 1 / -1; /* Span the entire width of the form */
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Form groups and input styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f1f1f1;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #6c757d;
+    background-color: #fff;
+}
+
+.submit-button {
+    padding: 10px;
+    font-size: 14px;
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Full width for mobile */
+    grid-column: 1 / -1; /* Full-width button on mobile */
+    justify-self: center; /* Center the button */
+}
+
+.submit-button:hover {
+    background-color: #514172;
+}
+
+/* Responsive Design */
+@media (min-width: 576px) {
+    .event-form {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for larger screens */
+        max-width: 700px;
+    }
+
+    .form-group {
+        flex-direction: column; /* Maintain column structure for labels and inputs */
+    }
+
+    .submit-button {
+        grid-column: 1 / -1; /* Span the entire width of the form */
+        justify-self: center; /* Center the button */
+        width: auto; /* Adjust the width */
+        max-width: 200px;
+        margin-top: 10px;
+    }
+}
+
+/* Larger screen adjustments */
+@media (min-width: 768px) {
+    .event-form {
+        max-width: 800px;
+        margin: 60px auto 20px; /* Center and add space on larger screens */
+    }
+}
+
+/* Mobile Specific Styling */
+@media (max-width: 576px) {
+    .event-form {
+        margin: 10px 0;
+        padding: 15px; /* Adjust padding to save space */
+    }
+
+    .submit-button {
+        width: 100%; /* Full-width button for better usability on mobile */
+    }
+}
