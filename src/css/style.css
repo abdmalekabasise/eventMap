@@ -13975,3 +13975,17 @@ ol.commentlist li .star-rating {
 .yellow-2.site-button:hover{
 	background: #f2e045;
 }
+
+
+/* Event Map Style H1 */
+
+.text-event{
+
+    font-family: Arial, sans-serif; /* Adjust font as desired */
+  color: black; /* Fill color */
+  -webkit-text-stroke: 1px #7133ee; /* Outline color and thickness */
+  font-size: 24px; /* Adjust size as desired */
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Optional shadow */
+    
+    }

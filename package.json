@@ -3,12 +3,16 @@
   "homepage": "https://sceneup.io/",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.0.3",
     "@react-google-maps/api": "^2.19.3",
     "axios": "^0.21.4",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "emailjs-com": "^3.2.0",
     "express": "^4.21.0",
+    "mapbox-gl": "^2.13.0",
     "nanoid": "^3.1.30",
     "react": "^17.0.1",
     "react-animated-slider": "^1.1.4",
@@ -18,6 +22,7 @@
     "react-dom": "^16.12.0",
     "react-image-lightbox": "^5.1.1",
     "react-mailchimp-form": "^1.0.2",
+    "react-map-gl": "^7.0.0",
     "react-masonry-css": "^1.0.14",
     "react-redux": "^7.2.4",
     "react-rev-slider": "^1.0.1",
@@ -34,17 +39,17 @@
     "sweetalert": "^2.1.2",
     "use-scroll-position": "0.0.4",
     "web-vitals": "^0.2.4",
-    "webpack-cli": "^5.1.4",
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run client:webpack\"",
     "server": "nodemon server.js",
-    "client": "react-scripts start",
-    "build": "react-scripts build",
+    "client:webpack": "webpack serve --mode development",
+    "build": "webpack --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -61,7 +66,22 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.25.9",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/preset-env": "^7.25.9",
+    "@babel/preset-react": "^7.25.9",
+    "babel-loader": "^9.2.1",
     "concurrently": "^9.0.1",
-    "nodemon": "^2.0.15"
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.6.3",
+    "nodemon": "^2.0.15",
+    "style-loader": "^4.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   }
 }

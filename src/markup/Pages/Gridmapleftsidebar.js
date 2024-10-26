@@ -1,57 +1,51 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 import GoogleMaps from "simple-react-google-maps";
 
-
-var bnr = require('./../../images/banner/bnr2.jpg');
+// Import images using ES6 import
+import bnr from './../../images/banner/bnr2.jpg';
+import pic14 from './../../images/listing/pic14.jpg';
+import pic15 from './../../images/listing/pic15.jpg';
+import pic13 from './../../images/listing/pic13.jpg';
+import pic16 from './../../images/listing/pic16.jpg';
+import pic17 from './../../images/listing/pic17.jpg';
 
 const gridBlog = [
+	{ image: pic14 },
+	{ image: pic15 },
+	{ image: pic13 },
+	{ image: pic16 },
+	{ image: pic17 },
+];
 
-	{
-		image: require("./../../images/listing/pic14.jpg"),
-	},
-	{
-		image: require("./../../images/listing/pic15.jpg"),
-	},
-	{
-		image: require("./../../images/listing/pic13.jpg"),
-	},
-	{
-		image: require("./../../images/listing/pic16.jpg"),
-	},
-	{
-		image: require("./../../images/listing/pic17.jpg"),
-	},
-]
-
-class Gridmapleftsidebar extends Component{
-	render(){
-		return(
+class Gridmapleftsidebar extends Component {
+	render() {
+		return (
 			<div className="page-wraper list-map">
-			
 				<Header />
-				
+
 				<div className="page-content bg-white">
-					
-					<div className="dlab-bnr-inr dlab-bnr-inr-sm overlay-black-middle" style={{backgroundImage:"url(" + bnr + ")"}}>
+					<div
+						className="dlab-bnr-inr dlab-bnr-inr-sm overlay-black-middle"
+						style={{ backgroundImage: `url(${bnr})` }}
+					>
 						<div className="container">
 							<div className="dlab-bnr-inr-entry">
 								<h1 className="text-white">Grid Map Left Sidebar</h1>
 								<p>Find awesome places, bars, restaurants & activities.</p>
-								
+
 								<div className="breadcrumb-row">
 									<ul className="list-inline">
 										<li><Link to={"./"}>Home</Link></li>
 										<li>Grid Map Left Sidebar</li>
 									</ul>
 								</div>
-								
 							</div>
 						</div>
 					</div>
-					
+
 					<div className="content-block">
 						<div className="section-full bg-white map-listing-bx">
 							<div className="container-fluid">
@@ -82,16 +76,16 @@ class Gridmapleftsidebar extends Component{
 													<div className="col-lg-4 col-md-4">
 														<div className="form-group">
 															<div className="input-group">
-																<input type="text" className="form-control" placeholder="Your location" />										
+																<input type="text" className="form-control" placeholder="Your location" />
 															</div>
 														</div>
 													</div>
 													<div className="col-lg-4 col-md-4">
 														<div className="form-group">
-															<select className="custom-select" id="inputGroupSelect01"> 
-																<option> Category</option>
-																<option>ConstrSelectuction</option>
-																<option>Corodinator</option>
+															<select className="custom-select" id="inputGroupSelect01">
+																<option>Category</option>
+																<option>Construction</option>
+																<option>Coordinator</option>
 																<option>Employer</option>
 																<option>Financial Career</option>
 																<option>Information Technology</option>
@@ -100,23 +94,23 @@ class Gridmapleftsidebar extends Component{
 																<option>Real Estate</option>
 																<option>Sales</option>
 																<option>Supporting</option>
-																<option>Teaching</option> 
+																<option>Teaching</option>
 															</select>
 														</div>
 													</div>
 												</div>
 											</form>
-											<h4 className="text-center m-b30">“ <span className="text-primary">(Restaurent)</span> 14 results found ”</h4>
+											<h4 className="text-center m-b30">“ <span className="text-primary">(Restaurant)</span> 14 results found ”</h4>
 										</div>
 										<div className="listing-filter m-b40">
 											<div className="d-flex">
 												<div className="mr-auto">
 													<ul className="filter m-b0">
 														<li>
-															<select className="custom-select" id="inputGroupSelect02"> 
+															<select className="custom-select" id="inputGroupSelect02">
 																<option>More Filters</option>
 																<option>Construction</option>
-																<option>Corodinator</option>
+																<option>Coordinator</option>
 																<option>Employer</option>
 																<option>Financial Career</option>
 																<option>Information Technology</option>
@@ -125,7 +119,7 @@ class Gridmapleftsidebar extends Component{
 																<option>Real Estate</option>
 																<option>Sales</option>
 																<option>Supporting</option>
-																<option>Teaching</option> 
+																<option>Teaching</option>
 															</select>
 														</li>
 													</ul>
@@ -139,12 +133,12 @@ class Gridmapleftsidebar extends Component{
 											</div>
 										</div>
 										<div className="row">
-											{gridBlog.map((item,index) => (
+											{gridBlog.map((item, index) => (
 												<div className="col-lg-12 col-md-12" key={index}>
 													<div className="listing-bx listing-half m-b30">
 														<div className="listing-media">
 															<img src={item.image} alt="" />
-																<ul className="wish-bx">
+															<ul className="wish-bx">
 																<li><Link className="like-btn" to={""}><i className="fa fa-heart"></i></Link></li>
 																<li><Link className="info-btn" to={""}><i className="fa fa-leaf"></i></Link></li>
 															</ul>
@@ -156,7 +150,6 @@ class Gridmapleftsidebar extends Component{
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
-																
 															</ul>
 															<h3 className="title"><Link to={"/listing-details"}>Rowdy King City</Link></h3>
 															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm.</p>
@@ -169,7 +162,7 @@ class Gridmapleftsidebar extends Component{
 												</div>
 											))}
 										</div>
-										
+
 										<div className="pagination-bx clearfix text-center">
 											<ul className="pagination">
 												<li className="previous"><Link to={"#"}><i className="fa fa-arrow-left"></i></Link></li>
@@ -180,18 +173,16 @@ class Gridmapleftsidebar extends Component{
 												<li className="next"><Link to={"#"}><i className="fa fa-arrow-right"></i></Link></li>
 											</ul>
 										</div>
-										
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
-				</div>	
-				
+				</div>
+
 				<Footer />
-			</div>	
-		)
+			</div>
+		);
 	}
 }
 

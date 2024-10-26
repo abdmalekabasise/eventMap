@@ -1,56 +1,52 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
-
 import Sidebar from './../Element/Sidebar';
 
-
-var bnr = require('./../../images/banner/bnr3.jpg');
+// Import images using ES6 import
+import bnr from './../../images/banner/bnr3.jpg';
 
 const listingBlog = [
 	{
-		image : require("./../../images/listing/pic1.jpg"),	
+		image: require("./../../images/listing/pic1.jpg"),
 	},
 	{
-		image :	require("./../../images/listing/pic2.jpg") 	
+		image: require("./../../images/listing/pic2.jpg")
 	},
 	{
-		image :	require("./../../images/listing/pic3.jpg") 	
+		image: require("./../../images/listing/pic3.jpg")
 	},
 	{
-		image :	require("./../../images/listing/pic4.jpg") 	
+		image: require("./../../images/listing/pic4.jpg")
 	},
 	{
-		image :	require("./../../images/listing/pic5.jpg") 	
+		image: require("./../../images/listing/pic5.jpg")
 	},
 	{
-		image :	require("./../../images/listing/pic6.jpg") 	
+		image: require("./../../images/listing/pic6.jpg")
 	},
 	{
-		image :	require("./../../images/listing/pic7.jpg") 	
+		image: require("./../../images/listing/pic7.jpg")
 	},
 	{
-		image :	require("./../../images/listing/pic8.jpg") 	
+		image: require("./../../images/listing/pic8.jpg")
 	},
+];
 
-]
-
-class Listingleftsidebar extends Component{
-	render(){
-		return(
+class Listingleftsidebar extends Component {
+	render() {
+		return (
 			<div className="page-wraper">
-			
 				<Header />
-				
+
 				<div className="page-content bg-white">
-					
-					<div className="dlab-bnr-inr dlab-bnr-inr-sm overlay-black-middle" style={{backgroundImage:"url(" + bnr + ")" }}>
+					<div className="dlab-bnr-inr dlab-bnr-inr-sm overlay-black-middle" style={{ backgroundImage: `url(${bnr})` }}>
 						<div className="container">
 							<div className="dlab-bnr-inr-entry">
 								<h1 className="text-white">Listings Left Sidebar</h1>
 								<p>Find awesome places, bars, restaurants & activities.</p>
-								
+
 								<div className="breadcrumb-row">
 									<ul className="list-inline">
 										<li><Link to={"./"}>Home</Link></li>
@@ -60,21 +56,20 @@ class Listingleftsidebar extends Component{
 							</div>
 						</div>
 					</div>
-					
+
 					<div className="content-block">
 						<div className="section-full content-inner bg-white">
 							<div className="container">
 								<div className="row">
-									
 									<Sidebar />
-									
+
 									<div className="col-lg-8 col-md-6">
 										<div className="listing-filter m-b40">
 											<div className="d-flex">
 												<div className="mr-auto">
 													<ul className="filter m-b0">
 														<li>
-															<select className="custom-select" id="inputGroupSelect01"> 
+															<select className="custom-select" id="inputGroupSelect01">
 																<option>More Filters</option>
 																<option>Construction</option>
 																<option>Corodinator</option>
@@ -86,7 +81,7 @@ class Listingleftsidebar extends Component{
 																<option>Real Estate</option>
 																<option>Sales</option>
 																<option>Supporting</option>
-																<option>Teaching</option> 
+																<option>Teaching</option>
 															</select>
 														</li>
 													</ul>
@@ -100,9 +95,9 @@ class Listingleftsidebar extends Component{
 												</div>
 											</div>
 										</div>
-										
+
 										<div className="row">
-											{listingBlog.map((item,index) => (
+											{listingBlog.map((item, index) => (
 												<div className="col-lg-6 col-md-12 col-sm-6 m-b30" key={index}>
 													<div className="listing-bx overlap">
 														<div className="listing-media">
@@ -115,45 +110,39 @@ class Listingleftsidebar extends Component{
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
-																
 															</ul>
 															<h3 className="title"><Link to={"/listing-details"}>King Organic Shop</Link></h3>
 														</div>
 														<ul className="wish-bx">
 															<li><Link className="like-btn" to={""}><i className="fa fa-heart"></i></Link></li>
-															<li><Link className="info-btn" to={""}><i className="fa fa-leaf"></i></Link></li>						
+															<li><Link className="info-btn" to={""}><i className="fa fa-leaf"></i></Link></li>
 														</ul>
 													</div>
 												</div>
 											))}
-											
-											
 										</div>
-										
+
 										<div className="pagination-bx clearfix text-center">
 											<ul className="pagination">
-												<li className="previous"><Link to = {""}><i className="fa fa-arrow-left"></i></Link></li>
-												<li><Link to = {""}>1</Link></li>
-												<li><Link to = {""}>2</Link></li>
-												<li><Link to = {""}>...</Link></li>
-												<li className="active"><Link to = {""}>7</Link></li>
-												<li className="next"><Link to = {""}><i className="fa fa-arrow-right"></i></Link></li>
+												<li className="previous"><Link to={""}><i className="fa fa-arrow-left"></i></Link></li>
+												<li><Link to={""}>1</Link></li>
+												<li><Link to={""}>2</Link></li>
+												<li><Link to={""}>...</Link></li>
+												<li className="active"><Link to={""}>7</Link></li>
+												<li className="next"><Link to={""}><i className="fa fa-arrow-right"></i></Link></li>
 											</ul>
 										</div>
-										
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
-				
-				
+
 				<Footer />
-				
 			</div>
-		)	
+		);
 	}
 }
 

@@ -1,48 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
-import { loadingToggleAction,loginAction,
-} from '../../store/actions/AuthActions';
+import { Link } from 'react-router-dom';
+import { loadingToggleAction, loginAction } from '../../store/actions/AuthActions';
 import bnr from './../../images/background/bg2.jpg';
+import logo from './../../images/logo-black.png'; // Import logo image
 
-function Login (props) {
+function Login(props) {
 	const [email, setEmail] = useState('demo@example.com');
-    let errorsObj = { email: '', password: '' };
-    const [errors, setErrors] = useState(errorsObj);
-    const [password, setPassword] = useState('123456');
+	let errorsObj = { email: '', password: '' };
+	const [errors, setErrors] = useState(errorsObj);
+	const [password, setPassword] = useState('123456');
 
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-    function onLogin(e) {
-        e.preventDefault();
-        let error = false;
-        const errorObj = { ...errorsObj };
-        if (email === '') {
-            errorObj.email = 'Email is Required';
-            error = true;
-        }
-        if (password === '') {
-            errorObj.password = 'Password is Required';
-            error = true;
-        }
-        setErrors(errorObj);
-        if (error) {
-			return ;
+	function onLogin(e) {
+		e.preventDefault();
+		let error = false;
+		const errorObj = { ...errorsObj };
+		if (email === '') {
+			errorObj.email = 'Email is Required';
+			error = true;
 		}
-		dispatch(loadingToggleAction(true));	
-        dispatch(loginAction(email, password, props.history));
-    }
-	
-	return(
+		if (password === '') {
+			errorObj.password = 'Password is Required';
+			error = true;
+		}
+		setErrors(errorObj);
+		if (error) {
+			return;
+		}
+		dispatch(loadingToggleAction(true));
+		dispatch(loginAction(email, password, props.history));
+	}
+
+	return (
 		<div className="page-wraper">
-			
-			<div className="page-content dlab-login" style={{backgroundImage: "url("+ bnr +")", backgroundPosition: "top right", backgroundBlendMode:"screen"}}>
+			<div className="page-content dlab-login" style={{ backgroundImage: `url(${bnr})`, backgroundPosition: "top right", backgroundBlendMode: "screen" }}>
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-lg-4 login-form-box">
 							<div className="login-form">
 								<div className="logo">
-									<Link to={"./"}><img src={require("./../../images/logo-black.png")} alt=""/></Link>
+									<Link to={"./"}><img src={logo} alt="" /></Link>
 								</div>
 								<div className="tab-content nav">
 									<div id="login" className="tab-pane active">
@@ -59,20 +58,17 @@ function Login (props) {
 												</div>
 											)}
 											<div className="text-center m-b20">
-												<Link to= {"#"} className="site-button facebook btn-block"><i className="fa fa-facebook-official m-r10"></i> Log in with Facebook</Link>
+												<Link to={"#"} className="site-button facebook btn-block"><i className="fa fa-facebook-official m-r10"></i> Log in with Facebook</Link>
 											</div>
 											<div className="form-group">
-												<input type="email" className="form-control" 
-													placeholder="Email Address"  
+												<input type="email" className="form-control"
+													placeholder="Email Address"
 													value={email}
 													onChange={(e) => setEmail(e.target.value)}
 												/>
 												{errors.email && <div className="text-danger fs-12">{errors.email}</div>}
-												
-												{/* <input name="dzName" required="" className="form-control" placeholder="Username or Email Address" type="text"/> */}
 											</div>
 											<div className="form-group">
-												{/* <input name="dzName" required="" className="form-control " placeholder="Type Password" type="password"/> */}
 												<input type="password" className="form-control" value={password} placeholder="Type Your Password"
 													onChange={(e) =>
 														setPassword(e.target.value)
@@ -94,7 +90,7 @@ function Login (props) {
 												<p className="info-bottom">Don’t have an account? <Link to="register" className="btn-link">Register</Link> </p>
 											</div>
 										</form>
-									</div>									
+									</div>
 								</div>
 							</div>
 						</div>
@@ -110,7 +106,7 @@ function Login (props) {
 									<li>
 										<div className="dlab-box">
 											<i className="fa fa-car"></i>
-											<p>Easily find hotels, things to do & restaurants that are right fr you</p>
+											<p>Easily find hotels, things to do & restaurants that are right for you</p>
 										</div>
 									</li>
 									<li>
@@ -126,14 +122,15 @@ function Login (props) {
 				</div>
 			</div>
 		</div>
-		
 	)
 }
+
 const mapStateToProps = (state) => {
-    return {
-        errorMessage: state.auth.errorMessage,
-        successMessage: state.auth.successMessage,
-        showLoading: state.auth.showLoading,
-    };
+	return {
+		errorMessage: state.auth.errorMessage,
+		successMessage: state.auth.successMessage,
+		showLoading: state.auth.showLoading,
+	};
 };
+
 export default connect(mapStateToProps)(Login);

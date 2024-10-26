@@ -4,7 +4,6 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import reportWebVitals from "./reportWebVitals";
 import SimpleReactLightbox from "simple-react-lightbox";
 
 ReactDOM.render(
@@ -21,4 +20,13 @@ ReactDOM.render(
     document.getElementById("root")
 );
 
-reportWebVitals();
+window.addEventListener("error", (e) => {
+    console.error("Global error caught:", e.error);
+});
+
+window.addEventListener("unhandledrejection", (e) => {
+    console.error("Unhandled promise rejection:", e.reason);
+});
+
+
+// reportWebVitals();

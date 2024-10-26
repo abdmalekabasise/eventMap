@@ -1,20 +1,21 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import Header2 from './../Layout/Header2';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
-import Mainlist from './../Element/Mainlist'; 
+import { Dropdown } from 'react-bootstrap';
+import Mainlist from './../Element/Mainlist';
 import Listingslider from './../Element/Listingslider';
-import {Dropdown} from 'react-bootstrap';
 
-class Listingdetail3 extends Component{
-	render(){
-		return(
+// Import images using ES6 import
+import bnr from './../../images/banner/bnr1.jpg';
+import logo from './../../images/gallery/gallery-box/pic1.jpg';
+
+class Listingdetail3 extends Component {
+	render() {
+		return (
 			<div className="page-wraper">
-				
-				<Header2 />
-				
-				<div className="page-content bg-white text-gray-1">	
-					
+				<Header />
+				<div className="page-content bg-white text-gray-1">
 					<div className="dlab-bnr-inr listing-details-slider">
 						<div className="dlab-bnr-inr-entry">
 							<Listingslider />
@@ -24,12 +25,12 @@ class Listingdetail3 extends Component{
 								<div className="listing-info-box row">
 									<div className="listing-details-left col-lg-7 col-md-7">
 										<div className="listing-theme-logo">
-											<img src={require("./../../images/gallery/gallery-box/pic1.jpg")} alt="" />
+											<img src={logo} alt="" />
 										</div>
 										<div className="listing-info">
 											<div className="listing-info-left text-white">
 												<h3 className="title">Listing Directory</h3>
-												<p>Vestibulum tincidunt dui quis neque facilisis,<br/> id vestibulum leo volutpat</p>
+												<p>Vestibulum tincidunt dui quis neque facilisis,<br /> id vestibulum leo volutpat</p>
 												<ul className="listing-info-list m-tb15">
 													<li><Link to={'#'} className="site-button-link white">Restaurants,</Link></li>
 													<li><Link to={'#'} className="site-button-link white">Canadian</Link></li>
@@ -47,7 +48,7 @@ class Listingdetail3 extends Component{
 													<span className="m-l5">2 Review </span>
 												</Link>
 												<Link data-toggle="modal" data-target="#favorite" to={''} className="site-button-link white">
-													<i className="la la-heart m-r5 font-20"></i>  
+													<i className="la la-heart m-r5 font-20"></i>
 													<span>1 Favorite </span>
 												</Link>
 											</div>
@@ -58,13 +59,11 @@ class Listingdetail3 extends Component{
 											<div className="listing-info-left text-white m-b20">
 												<ul className="listing-info-list m-tb15">
 													<li><Link to={'#'} className="site-button-link white">Claim this listing</Link></li>
-													<li>	
+													<li>
 														<Dropdown className="dropdown dropdown-btn">
-															
-															<Dropdown.Toggle variant=""  id="dropdown-basic" childBsPrefix="site-button-link white btn-link" >
+															<Dropdown.Toggle variant="" id="dropdown-basic" childBsPrefix="site-button-link white btn-link">
 																<i className="la la-share m-r5"></i>  Share
 															</Dropdown.Toggle>
-																
 															<Dropdown.Menu>
 																<Dropdown.Item href="#/action-1">
 																	<div className="site-button-link facebook">
@@ -97,15 +96,13 @@ class Listingdetail3 extends Component{
 																	</div>
 																</Dropdown.Item>
 																<Dropdown.Item href="#/action-7">
-																	
 																	<div className="site-button-link whatsapp">
 																		<i className="fa fa-whatsapp"></i><span> Whatsapp</span>
-																	</div>	
+																	</div>
 																</Dropdown.Item>
 															</Dropdown.Menu>
 														</Dropdown>
-														
-													</li>											
+													</li>
 													<li><Link to={'#'} className="site-button-link white"><i className="la la-photo m-r5 font-16"></i>Add Photos</Link></li>
 												</ul>
 											</div>
@@ -117,19 +114,17 @@ class Listingdetail3 extends Component{
 								</div>
 							</div>
 						</div>
-						
-					</div>	
+					</div>
 					<div className="section-full listing-details-content">
 						<div className="container">
 							<Mainlist />
 						</div>
-					</div>	
+					</div>
 				</div>
-				
-				<Footer  />
-			
+				<Footer />
 			</div>
-		)
+		);
 	}
 }
+
 export default Listingdetail3;

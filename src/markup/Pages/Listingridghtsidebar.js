@@ -4,8 +4,8 @@ import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import Sidebar from '../Element/Sidebar';
 
-
-var bnr = require('./../../images/banner/bnr3.jpg');
+// Import images using ES6 import
+import bnr from './../../images/banner/bnr3.jpg';
 
 const listingBlog = [
 	{
@@ -32,18 +32,16 @@ const listingBlog = [
 	{
 		image: require("./../../images/listing/pic8.jpg")
 	},
-
-]
+];
 
 class Listingrightsidebar extends Component {
 	render() {
 		return (
 			<div className="page-wraper">
-
 				<Header />
 				<div className="page-content bg-white">
 
-					<div className="dlab-bnr-inr dlab-bnr-inr-sm overlay-black-middle" style={{ backgroundImage: "url(" + bnr + ")" }}>
+					<div className="dlab-bnr-inr dlab-bnr-inr-sm overlay-black-middle" style={{ backgroundImage: `url(${bnr})` }}>
 						<div className="container">
 							<div className="dlab-bnr-inr-entry">
 								<h1 className="text-white">Listings Right Sidebar</h1>
@@ -110,7 +108,6 @@ class Listingrightsidebar extends Component {
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
 																<li><i className="fa fa-star"></i></li>
-
 															</ul>
 															<h3 className="title"><Link to={"/listing-details"}>King Organic Shop</Link></h3>
 														</div>
@@ -121,8 +118,6 @@ class Listingrightsidebar extends Component {
 													</div>
 												</div>
 											))}
-
-
 										</div>
 
 										<div className="pagination-bx clearfix text-center">
@@ -146,7 +141,6 @@ class Listingrightsidebar extends Component {
 					</div>
 
 				</div>
-
 
 				<Footer />
 

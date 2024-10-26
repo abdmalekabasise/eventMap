@@ -4,7 +4,8 @@ import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 import { Form } from 'react-bootstrap';
 
-var bnr = require('./../../images/banner/bnr2.jpg');
+import bnr from './../../images/banner/bnr2.jpg';
+
 
 class Addlisting extends Component {
 	render() {
@@ -214,7 +215,7 @@ class Addlisting extends Component {
 												<h3 className="title">Add</h3>
 											</div>
 											<div className="content-body">
-												<img className="img-cover" src={require("./../../images/add/add1.jpg")} alt="" />
+												<img className="img-cover" src={'./../../images/add/add1.jpg'} alt="" />
 											</div>
 										</div>
 									</aside>
