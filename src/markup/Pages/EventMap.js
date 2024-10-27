@@ -7,9 +7,9 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
     const [viewport, setViewport] = useState({
-        latitude: 37.7749,
-        longitude: -122.4194,
-        zoom: 8,
+        latitude: 40.7831,
+        longitude: -73.9712,
+        zoom: 12,
         width: '100%',
         height: '600px',
     });
@@ -27,10 +27,43 @@ const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
     });
     const timeoutRef = useRef(null);
 
+    const ZOOM_THRESHOLD = 12;
+    const FETCH_THRESHOLD = 0.2; // Adjust as needed (approx. 20 km)
+    const [lastFetchCenter, setLastFetchCenter] = useState({ latitude: 40.7831, longitude: -73.9712 });
+    const [fetchedOnce, setFetchedOnce] = useState(false);
+
+
+
+    const hasMovedSignificantly = (lat1, lng1, lat2, lng2, threshold) => {
+        return Math.abs(lat1 - lat2) > threshold || Math.abs(lng1 - lng2) > threshold;
+    };
+
+    useEffect(() => {
+        const hasMovedSignificantly = (lat1, lng1, lat2, lng2, threshold) => {
+            return Math.abs(lat1 - lat2) > threshold || Math.abs(lng1 - lng2) > threshold;
+        };
+
+        if (
+            viewport.zoom >= ZOOM_THRESHOLD && // Check zoom level
+            hasMovedSignificantly(viewport.latitude, viewport.longitude, lastFetchCenter.latitude, lastFetchCenter.longitude, FETCH_THRESHOLD)
+        ) {
+            fetchEvents();
+            setLastFetchCenter({ latitude: viewport.latitude, longitude: viewport.longitude });
+        }
+    }, [viewport.latitude, viewport.longitude, viewport.zoom]); // Re-run only when lat, lng, or zoom changes
+
+
+
+    const [eventsLoading, setEventsLoading] = useState(false);
+
+
+
+
+
     const fetchEvents = async () => {
-        setLoading(true);
+        setEventsLoading(true);
         try {
-            const response = await axios.get('http://localhost:5000/api/events', {
+            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/events`, {
                 params: {
                     lat: viewport.latitude,
                     lng: viewport.longitude,
@@ -38,39 +71,67 @@ const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
                 }
             });
 
-            const formattedEvents = response.data
-                .filter(event => {
-                    const eventDate = new Date(event.dates.start.localDate);
-                    const selectedDate = new Date(searchData.date || new Date());
+            const formattedEvents = response.data.map(event => ({
+                id: event.id, // Assuming each event has a unique 'id'
+                title: event.name,
+                lat: event._embedded.venues[0].location.latitude,
+                lng: event._embedded.venues[0].location.longitude,
+                category: event.classifications?.[0].segment.name,
+                date: event.dates.start.localDate,
+                time: event.dates.start.localTime ? convertTo12Hour(event.dates.start.localTime) : 'Time not available',
+                venue: event._embedded.venues[0].name
+            }));
 
-                    return (
-                        eventDate.toDateString() === selectedDate.toDateString() &&
-                        (!searchData.category || event.classifications?.[0]?.segment.name === searchData.category) &&
-                        (!searchData.searchInput || event.name.toLowerCase().includes(searchData.searchInput.toLowerCase())) &&
-                        (!searchData.city || event._embedded.venues[0].city.name.toLowerCase() === searchData.city.toLowerCase())
-                    );
-                })
-                .map(event => ({
-                    title: event.name,
-                    lat: event._embedded.venues[0].location.latitude,
-                    lng: event._embedded.venues[0].location.longitude,
-                    category: event.classifications?.[0].segment.name,
-                    date: event.dates.start.localDate,
-                    time: convertTo12Hour(event.dates.start.localTime),
-                    venue: event._embedded.venues[0].name
-                }));
-
-            setEvents(formattedEvents);
+            setEvents(prevEvents => {
+                // Create a map to prevent duplicates
+                const eventMap = {};
+                prevEvents.forEach(event => {
+                    eventMap[event.id] = event;
+                });
+                formattedEvents.forEach(event => {
+                    eventMap[event.id] = event;
+                });
+                // Convert the map back to an array
+                return Object.values(eventMap);
+            });
         } catch (error) {
             console.error('Error fetching events:', error);
         } finally {
-            setLoading(false);
+            setEventsLoading(false);
         }
     };
 
+
+
+
     useEffect(() => {
-        fetchEvents();
-    }, [searchData]);
+        // Only fetch events if zoomed in enough
+        if (viewport.zoom >= ZOOM_THRESHOLD) {
+            // Debounce fetchEvents
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => {
+                fetchEvents();
+                setLastFetchCenter({ latitude: viewport.latitude, longitude: viewport.longitude });
+            }, 500);
+        }
+    }, [viewport, searchData]);
+
+
+
+
+    useEffect(() => {
+        // Clear any existing timeout
+        clearTimeout(timeoutRef.current);
+
+        // Set a new timeout to debounce the API call when viewport changes
+        timeoutRef.current = setTimeout(() => {
+            if (viewport.zoom >= ZOOM_THRESHOLD) {
+                fetchEvents();
+            }
+        }, 500); // Adjust debounce delay as needed
+    }, [viewport, searchData]);
+
+
 
     const convertTo12Hour = (time) => {
         const [hour, minute] = time.split(':');
@@ -170,18 +231,25 @@ const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
                             mapStyle="mapbox://styles/dudebrochill/cm2pb7ch600di01qi3a2a5cvo/draft"
                             onMove={(evt) => setViewport(evt.viewState)}
                         >
-                            {events.map((event, index) => (
-                                <Marker
-                                    key={index}
-                                    latitude={parseFloat(event.lat)}
-                                    longitude={parseFloat(event.lng)}
-                                    onClick={() => setSelectedEvent(event)}
-                                >
-                                    <div style={{ fontSize: '24px', cursor: 'pointer' }}>
-                                        {getCategoryIcon(event.category)}
-                                    </div>
-                                </Marker>
-                            ))}
+                            {events.length === 0 ? (
+                                <div style={{ textAlign: 'center', padding: '10px', color: '#888' }}>
+                                    No events available in this area
+                                </div>
+                            ) : (
+                                events.map((event, index) => (
+                                    <Marker
+                                        key={event.id}
+                                        latitude={parseFloat(event.lat)}
+                                        longitude={parseFloat(event.lng)}
+                                        onClick={() => setSelectedEvent(event)}
+                                    >
+                                        <div style={{ fontSize: '24px', cursor: 'pointer' }}>
+                                            {getCategoryIcon(event.category)}
+                                        </div>
+                                    </Marker>
+                                ))
+                            )}
+
 
                             {selectedEvent && (
                                 <Popup
@@ -191,11 +259,7 @@ const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
                                     closeOnClick={false}
                                     anchor="top"
                                 >
-                                    <div style={{
-                                        width: '150px',
-                                        padding: '8px',
-                                        fontSize: '14px'
-                                    }}>
+                                    <div style={{ width: '150px', padding: '8px', fontSize: '14px' }}>
                                         <button
                                             onClick={() => setSelectedEvent(null)}
                                             style={{
@@ -218,6 +282,9 @@ const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
                                 </Popup>
                             )}
                         </ReactMapGL>
+
+
+
                     ) : (
                         <div className="error-message">
                             <p>Map cannot be loaded. Mapbox token is missing.</p>
@@ -318,7 +385,9 @@ const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
                 </button>
             </form>
         </div>
+
     );
+
 };
 
 // CSS for the spinner animation

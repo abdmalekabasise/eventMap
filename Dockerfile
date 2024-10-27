@@ -1,23 +1,18 @@
-# Use an official Node runtime as a parent image
-FROM node:16.20.2
+# Use an official Node.js runtime as a parent image
+FROM node:18.20.2
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Set the working directory
+WORKDIR /
 
-# Install global dependencies
-RUN npm install -g nodemon
-
-# Copy package.json and package-lock.json
+# Copy package.json and install dependencies
 COPY package*.json ./
+RUN npm install --force
 
-# Install project dependencies with legacy peer dependencies
-RUN npm install --production --legacy-peer-deps
-
-# Copy the local code to the container's workspace.
+# Copy the rest of your application
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 5000
+# Expose the port
+EXPOSE 8080
 
-# Run the app using nodemon
-CMD ["nodemon", "server.js"]
+# Start the app
+CMD ["node", "server.js"]  # Replace app.js with your entry file if different
