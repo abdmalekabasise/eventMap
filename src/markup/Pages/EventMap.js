@@ -63,7 +63,7 @@ const EventMap = ({ onAddEvent, searchData, loading, setLoading }) => {
     const fetchEvents = async () => {
         setEventsLoading(true);
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/events`, {
+            const response = await axios.get(`https://eventmaps-main-1071080686287.us-central1.run.app/api/events`, {
                 params: {
                     lat: viewport.latitude,
                     lng: viewport.longitude,
